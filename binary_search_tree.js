@@ -14,10 +14,8 @@ que nos dara apoio para a criação da Árvore Binária:
 */
 class No {
 
-    /*
-     o NO que criamos possui recebe 3 parametros, data(DADO) E mais duas propriedades: esquerda e direita, que possuem valor nulo
+     //o NO que criamos possui recebe 3 parametros, data(DADO) E mais duas propriedades: esquerda e direita, que possuem valor nulo
     
-    */
     constructor(data, esquerda = null, direita = null) {
         this.data = data;
         this.esquerda = esquerda;
@@ -117,8 +115,13 @@ class ArvoreBuscaBinaria {
 
         else {
 
+            //Se tanto o lado direito quanto o lado esquerdo forem  null a raiz recebe null e retorna a raiz
             if (no.esquerda === null && no.direita === null) { no = null; return no; }
+
+            //Se apenas olado esquerdo for null a raiz recebe o NO do lado direito e retorno a raiz
             if (no.esquerda === null) { no = no.direita; return no; }
+
+            //Se apenas olado direito for null a raiz recebe o NO do lado esquerdo e retorno a raiz
             else if (no.direita === null) { no = no.esquerda; return no; }
 
             let aux = this.EncontrarMenorNo(no.direita);
@@ -129,6 +132,16 @@ class ArvoreBuscaBinaria {
             return no;
         }
     }
+
+    EncontrarMenorNo(no){
+        if (no.esquerda===null){
+            return no;
+        } else {
+            return this.EncontrarMenorNo(no.esquerda);
+        }
+    }
+
+    //Esse método percorre a árvore a partir de um nó. Percorre a subárvore esquerda, visita a raiz e percorre a subárvore direita.
 
     EmOrdem(no) {
         if (no !== null) {
@@ -141,6 +154,67 @@ class ArvoreBuscaBinaria {
         }
     }
 
+   /*
+   Esse método percorre a árvore visitando primeiro o nó raiz e, então, percorre a subárvore esquerda.
+   Após percorrer o lado esquerdo, o método percorre a subárvore direita.
+    */
+   
+   PreOrdem(no){
+        if (no !== null){
+            console.log(no.data);
+            this.PreOrdem(no.esquerda);
+            this.PreOrdem(no.direita);
+        }
+    }
+/* 
+Começa percorrendo a subárvore esquerda, depois, percorre a subárvore direita e por último, visita o nó root.
+*/
+    PosOrdem(no){
+        if (no !== null){
+            this.PosOrdem(no.esquerda);
+            this.PosOrdem(no.direita);
+            console.log(no.data);
+        }
+    }
+
+    //Retorna o nó raiz da árvore
+    EncontrarNoRaiz(){
+        return this.root;
+    }
+    
+    //Pesquisa o nó com dados que tenham o valor em toda a árvore:
+    Pesquisar(no, data){
+        if (no === null){return null;}
+
+        else if (data < no.data){ return this.Pesquisar(no.esquerda, data);}
+        else if (data > no.data){ return this.Pesquisar(no.direita, data);}
+        else { return no;}
+    }
 
 
-}
+};
+
+
+let arvoreBinaria = new ArvoreBuscaBinaria();
+arvoreBinaria.Insercao(20);
+arvoreBinaria.Insercao(25);
+arvoreBinaria.Insercao(15);
+arvoreBinaria.Insercao(10);
+arvoreBinaria.Insercao(28);
+arvoreBinaria.Insercao(27);
+arvoreBinaria.Insercao(9);
+arvoreBinaria.Insercao(7);
+arvoreBinaria.Insercao(2);
+arvoreBinaria.Insercao(28);
+
+let raiz = arvoreBinaria.EncontrarNoRaiz();
+
+//Do menor para o maior
+
+console.log('Em Ordem');
+arvoreBinaria.EmOrdem(raiz);
+
+console.log('Pos Ordem');
+arvoreBinaria.PosOrdem(raiz);
+
+arvoreBinaria.Remover(2);
