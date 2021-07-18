@@ -195,17 +195,12 @@ Começa percorrendo a subárvore esquerda, depois, percorre a subárvore direita
 };
 
 
-let arvoreBinaria = new ArvoreBuscaBinaria();
-arvoreBinaria.Insercao(20);
-arvoreBinaria.Insercao(25);
-arvoreBinaria.Insercao(15);
-arvoreBinaria.Insercao(10);
-arvoreBinaria.Insercao(28);
-arvoreBinaria.Insercao(27);
-arvoreBinaria.Insercao(9);
-arvoreBinaria.Insercao(7);
-arvoreBinaria.Insercao(2);
-arvoreBinaria.Insercao(28);
+let arvoreBinaria = new ArvoreBuscaBinaria(),
+arrayNumAleatorios = [20,25,15,10,28,27,9,7,2,28];
+
+for(let index = 0; index < arrayNumAleatorios.length;index++){
+    arvoreBinaria.Insercao(arrayNumAleatorios[index])
+};
 
 let raiz = arvoreBinaria.EncontrarNoRaiz();
 
